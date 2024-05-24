@@ -44,7 +44,26 @@ const findCandidate = async (req,res)=>{
 }
 
 const updateCandidate = async (req,res)=>{
-
+    try{
+    const {id} = req.params
+    const isVoterExist = await Candidate.findById(id)
+    if(!isVoterExist) return res.status(400).json({success: false, message:'user not found'})
+    const voter = await Candidate.findByIdAndUpdate(
+        id,
+        {
+            $set:req.body
+        },
+        {
+            runValidators:true
+        }
+    )
+    if(!voter) return res.status(400).json({success:false, messsage:'failed to update'})
+    return res.status(200).json({success:true, data:voter})
+    }catch(err){
+        console.log(err.message)
+        console.log(err)
+        return res.status(400).json({success:false,message:err.message, data:err})
+    }
 }
 
 const removeCandidate = async (req,res)=>{
