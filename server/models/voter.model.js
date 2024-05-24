@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken'
 
-const VoterSchema = new Schema({
+const voterSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -47,21 +47,21 @@ const VoterSchema = new Schema({
     }
 },{timestamps: true})
 
-VoterSchema.pre('save', async function(next){
+voterSchema.pre('save', async function(next){
     if(!this.isModified('password')) return next()
-    this.password = await bcrypt(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 })
 
-VoterSchema.pre('save', async function(next){
+voterSchema.pre('save', async function(next){
     if(!this.isModified('passcode')) return next()
-    this.passcode = await bcrypt(this.passcode, 10)
+    this.passcode = await bcrypt.hash(this.passcode, 10)
     next()
 })
 
-VoterSchema.methods ={
+voterSchema.methods ={
 
-    generateAccessToken : async function(){
+    generateAccessToken: async function(){
         return await jwt.sign(
             {id:this._id, name:this.name, email:this.email},
             process.env.ACCESS_TOKEN_SECRET,
@@ -76,4 +76,5 @@ VoterSchema.methods ={
     }
 }
 
-export default Voter = model('Voter', VoterSchema)
+const Voter = model('voter', voterSchema)
+export default Voter

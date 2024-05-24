@@ -3,12 +3,12 @@ import { Schema,model} from 'mongoose'
 const VoteSchema = new Schema({
     voter: {
         type: Schema.Types.ObjectId,
-        ref: Voter
+        ref: 'voter'
     },
     candidate: {
         type: Schema.Types.ObjectId,
-        ref: Candidate
+        ref: 'candidate'
     }
 })
 
-export default Vote = model('Vote', VoteSchema) 
+export default Vote = model('vote', VoteSchema) 
