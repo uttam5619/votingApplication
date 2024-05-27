@@ -25,6 +25,14 @@ const voterSchema = new Schema({
         minLength: [6, 'password should contain atleast 5 characters'],
         maxLength: [100, 'password should contain atmost 100 characters'],
     },
+    image :{
+        public_id: {
+            type: String, 
+        },
+        secure_url: {
+            type: String, // cloudinary_url
+        }
+    },
     age:{
         type: "Number",
         required: true,
