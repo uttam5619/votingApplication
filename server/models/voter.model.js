@@ -25,7 +25,7 @@ const voterSchema = new Schema({
         minLength: [6, 'password should contain atleast 5 characters'],
         maxLength: [100, 'password should contain atmost 100 characters'],
     },
-    image :{
+    userProfilePic :{
         public_id: {
             type: String, 
         },
@@ -37,6 +37,11 @@ const voterSchema = new Schema({
         type: "Number",
         required: true,
 
+    },
+    role:{
+        type: "string",
+        enum: ['voter', 'admin'],
+        default: 'voter',
     },
     passcode:{
         type: "string",

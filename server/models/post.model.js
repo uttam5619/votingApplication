@@ -29,10 +29,29 @@ const postSchema = new Schema({
             ref: 'voter',
         }
     ],
-    comments:[
+    dislikes :{
+        type: Number,
+        default: 0,
+    },
+    dislikedBy: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'reply',
+            ref: 'voter',
+        }
+    ],
+    comments:[
+        {
+            user:{
+                type: Schema.Types.ObjectId,
+                ref: 'voter',
+                required: true
+            },
+            comment : {
+                type: String
+            },
+            userProfilePic: {
+                type: String, // cloudinary url
+            }
         }
     ]
 },{timestamps:true})

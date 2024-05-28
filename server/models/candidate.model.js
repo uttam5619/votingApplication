@@ -32,14 +32,21 @@ const CandidateSchema = new Schema({
     voted:{
         type: "boolean",
     },
-    votes: {
+    totalVotes: {
         type: 'Number',
         default: 0
     },
     votedBy: [
         {
-            type: Schema.Types.ObjectId,
-            ref: 'voter'
+            voter:{
+                type: Schema.Types.ObjectId,
+                ref: 'voter',
+                required: true,
+            },
+            voted_At:{
+                type: Date,
+                default: Date.now()
+            }
         }
     ]
 },{timestamps: true})
